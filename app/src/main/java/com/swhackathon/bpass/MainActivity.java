@@ -22,17 +22,17 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
         setContentView(R.layout.activity_main);
 
-/*
+
         NaverMapOptions options = new NaverMapOptions()
                 .camera(new CameraPosition(new LatLng(35.1798159, 129.0750222), 8))
                 .mapType(NaverMap.MapType.Terrain);
 
-*/
+
 
         FragmentManager fm = getSupportFragmentManager();
         MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.map);
         if (mapFragment == null) {
-            mapFragment = MapFragment.newInstance();
+            mapFragment = MapFragment.newInstance(options);
             getSupportFragmentManager().beginTransaction().add(R.id.map, mapFragment).commit();
         }
 
