@@ -2,5 +2,12 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#0f84f7</color>
+
+    <color name="black">#2e2e2e</color>
+    <color name="black2">#232323</color>
+    <color name="white">#FFFFFF</color>
+    <color name="brown_grey">#878787</color>
+    <color name="deep_sky_blue">#0f84f7</color>
+    <color name="very_light_pink_two">#b9b9b9</color>
 </resources>
