@@ -12,6 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="6b3m7jfyy5" />
+
+        <activity android:name=".MainActivity">
         <activity android:name=".SignUpActivity"></activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".ChoiceActivity">
@@ -25,7 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
     </application>
 
 </manifest>
