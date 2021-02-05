@@ -4,24 +4,29 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.swhackathon.bpass.ListAdapter;
+import com.swhackathon.bpass.db.AppDatabase;
+import com.swhackathon.bpass.ItemDecoration;
+import com.swhackathon.bpass.ListPersonAdapter;
 import com.swhackathon.bpass.R;
-import com.swhackathon.bpass.network.data.responsedata.VisitListData;
+import com.swhackathon.bpass.db.Visit;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ListPersonActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private ListAdapter listAdapter;
-    private ArrayList<VisitListData> visitListData;
+    private ListPersonAdapter listPersonAdapter;
+    private List<Visit> visitData;
+    private List<Visit> myData;
     private RecyclerView rv_list;
     private TextView tv_name, tv_email;
     private SharedPreferences sharedPreferences;
@@ -34,7 +39,7 @@ public class ListPersonActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         tv_name = findViewById(R.id.tv_name);
         tv_email = findViewById(R.id.tv_email);
-        rv_list = findViewById(R.id.rv_list);
+        rv_list = findViewById(R.id.rv_list_person);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -45,7 +50,24 @@ public class ListPersonActivity extends AppCompatActivity {
         sharedPreferences = this.getSharedPreferences("TOKEN", Context.MODE_PRIVATE);
         tv_name.setText(sharedPreferences.getString("name", "해커톤"));
         tv_email.setText(sharedPreferences.getString("email", "B-pass@gmail.com"));
+
+        AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, "visit-db")
+                .allowMainThreadQueries()
+                .build();
+
+
+
+        Log.d("디비", db.visitDao().getAll().toString());
+        listPersonAdapter = new ListPersonAdapter();
+        rv_list.setAdapter(listPersonAdapter);
+
+        visitData = db.visitDao().getAll();
+        listPersonAdapter.mData = visitData;
+        rv_list.addItemDecoration(new ItemDecoration(this,15));
+        listPersonAdapter.notifyDataSetChanged();
+
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
