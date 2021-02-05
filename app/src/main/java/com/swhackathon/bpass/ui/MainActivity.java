@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         btn_list_person.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ListStoreActivity.class);
+                Intent intent = new Intent(MainActivity.this, ListPersonActivity.class);
                 startActivity(intent);
             }
         });
