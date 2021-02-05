@@ -9,12 +9,13 @@ public class Visit {
     private int id;
     private String storeName;
     private String storeNumber;
+    private String adress;
     private String entryTime;
     private String exitTime;
     private Double longitude;
     private Double latitude;
 
-    public Visit(String storeName, String storeNumber, String entryTime, String exitTime, double longitude, double latitude) {
+    public Visit(String storeName, String storeNumber, String adress, String entryTime, String exitTime, double longitude, double latitude) {
         this.storeName = storeName;
         this.storeNumber = storeNumber;
         this.entryTime = entryTime;
@@ -33,6 +34,10 @@ public class Visit {
 
     public String getStoreNumber() {
         return storeNumber;
+    }
+
+    public String getAdress() {
+        return adress;
     }
 
     public String getEntryTime() {
@@ -77,5 +82,9 @@ public class Visit {
 
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
     }
 }

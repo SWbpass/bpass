@@ -50,7 +50,7 @@ public class BluetoothActivity extends AppCompatActivity {
         //db.visitDao().insert(new Visit("이디야커피 용산청파","02-711-7385","11 : 42 : 01", "03 : 27 : 10", 126.9736404,  37.5513775));
 
         new InsertAsynTsak(db.visitDao())
-                .execute(new Visit("스타벅스 서울역동자동","1522-3232","10 : 25 : 45", "01 : 15 : 23", 126.9694083, 37.549469));
+                .execute(new Visit("스타벅스 서울역동자동","1522-3232", "서울특별시 용산구 동자동 한강대로 372","10 : 25 : 45", "01 : 15 : 23", 126.9694083, 37.549469));
 
     }
 
@@ -65,7 +65,7 @@ public class BluetoothActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Visit... visits) {
             visitDao.insert(visits[0]);
-            visitDao.insert(new Visit("이디야커피 용산청파","02-711-7385","11 : 42 : 01", "03 : 27 : 10", 126.9736404,  37.5513775));
+            visitDao.insert(new Visit("이디야커피 용산청파","02-711-7385", "서울특별시 용산구 청파동 청파로71길 10","11 : 42 : 01", "03 : 27 : 10", 126.9736404,  37.5513775));
             return null;
         }
     }

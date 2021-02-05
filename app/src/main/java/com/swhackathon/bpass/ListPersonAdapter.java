@@ -13,10 +13,11 @@ import com.swhackathon.bpass.db.Visit;
 
 import java.util.List;
 
-public class ListPersonAdapter extends RecyclerView.Adapter<ListPersonAdapter.ViewHolder> {
+public class ListPersonAdapter extends RecyclerView.Adapter<ListPersonAdapter.ViewHolder> implements OnListItemClickListener{
 
     public Context context;
     public List<Visit> mData;
+    OnListItemClickListener listener;
 
     @NonNull
     @Override
@@ -25,7 +26,7 @@ public class ListPersonAdapter extends RecyclerView.Adapter<ListPersonAdapter.Vi
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ;
 
         View view = inflater.inflate(R.layout.item_list, parent, false) ;
-        ViewHolder vh = new ViewHolder(view) ;
+        ViewHolder vh = new ViewHolder(view, this) ;
 
         return vh ;
     }
@@ -45,12 +46,27 @@ public class ListPersonAdapter extends RecyclerView.Adapter<ListPersonAdapter.Vi
         mData.add(data);
     }
 
+    public void setOnItemClicklistener(OnListItemClickListener listener){
+        this.listener = listener;
+    }
+
+    @Override
+    public void onItemClick(ViewHolder holder, View view, int position) {
+        if(listener != null){
+            listener.onItemClick(holder,view,position);
+        }
+    }
+
+    public Visit getItem(int position) {
+        return mData.get(position);
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_name, tv_entry, tv_exit, tv_tel;
         View divide_line;
 
-        ViewHolder(final View itemView) {
+        ViewHolder(final View itemView, final OnListItemClickListener listener) {
             super(itemView);
             // 뷰 객체에 대한 참조. (hold strong reference)
             tv_name = itemView.findViewById(R.id.tv_name);
@@ -62,6 +78,10 @@ public class ListPersonAdapter extends RecyclerView.Adapter<ListPersonAdapter.Vi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if(listener != null){
+                        listener.onItemClick(ViewHolder.this, v, position);
+                    }
                 }
             });
         }
@@ -77,3 +97,7 @@ public class ListPersonAdapter extends RecyclerView.Adapter<ListPersonAdapter.Vi
 
     }
 }
+
+
+
+
