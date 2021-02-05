@@ -2,18 +2,29 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.swhackathon.bpass">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ui.MapActivity"></activity>
+
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="6b3m7jfyy5" />
+            android:value="@string/client_id" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.MainActivity" />
+        <activity android:name=".ui.SignUpActivity" />
+        <activity android:name=".ui.LoginActivity" />
+        <activity android:name=".ui.ChoiceActivity"></activity>
+        <activity
+            android:name=".ui.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
