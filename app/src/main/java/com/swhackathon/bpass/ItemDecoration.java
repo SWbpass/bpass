@@ -21,8 +21,8 @@ public class ItemDecoration extends RecyclerView.ItemDecoration{
             (@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
 
-        if (parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1)
-            outRect.right = top_size;
+        if (parent.getChildAdapterPosition(view) != 0)
+            outRect.top = top_size;
     }
     private int dpToPx(Context context, int dp) {
         return (int) TypedValue.applyDimension

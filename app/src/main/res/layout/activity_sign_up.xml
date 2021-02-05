@@ -516,6 +516,7 @@
                 android:lineHeight="27dp"
                 android:textColor="@color/white"
                 android:textFontWeight="500"
+                android:paddingVertical="14dp"
                 android:textSize="18dp"
                 android:background="@drawable/blue_roundbox_20"
                 android:layout_marginTop="49dp"
