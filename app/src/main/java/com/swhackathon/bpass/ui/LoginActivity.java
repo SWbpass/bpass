@@ -118,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<String> task) {
                 if(!task.isSuccessful()) {
-                    Log.w("getFirebaseToken >>", "Get FCM Token Failed", task.getException());
+                    Log.e("getFirebaseToken >>", "Get FCM Token Failed", task.getException());
                     /*
                     TODO: 토큰을 얻어오지 못했을 때 처리 필요
                      */
@@ -127,20 +127,25 @@ public class LoginActivity extends AppCompatActivity {
 
                 String token = task.getResult();
                 // 가져온 토큰을 API 서버로 보냄
-                SendFirebaseToken(new RequestFirebaseToken(response.getId(), response.getAccessToken()), response.getAccessToken());
+
+                Log.e("[id]", response.getId());
+                Log.e("[jwt]", response.getAccessToken());
+                Log.e("[token]", token);
+                SendFirebaseToken(new RequestFirebaseToken(response.getId(), token), response.getAccessToken());
             }
         });
     }
 
-    private void SendFirebaseToken(RequestFirebaseToken requestFirebaseToken, String authToken) {
-        Map<String, String> headerMap = new HashMap<String, String>();
-        headerMap.put("Authorization", "Bearer " + authToken);
-        service.registerFirebaseToken(headerMap, requestFirebaseToken).enqueue(new Callback<ResponseFirebaseToken>(){
+    private void SendFirebaseToken(RequestFirebaseToken requestFirebaseToken, String jwtAuthToken) {
+        String header = "Bearer " + jwtAuthToken;
+
+        Log.e("[header]", header);
+        service.registerFirebaseToken(header, requestFirebaseToken).enqueue(new Callback<ResponseFirebaseToken>(){
             @Override
             public void onResponse(Call<ResponseFirebaseToken> call, Response<ResponseFirebaseToken> response) {
-                Log.d("통신 >> ", response.toString());
+                Log.e("통신2 >> ", response.toString());
                 if(response.isSuccessful()){
-                    //
+                    Log.e("통신22 >> ", response.toString());
                 }
                 else
                     Toast.makeText(LoginActivity.this, response.message(), Toast.LENGTH_SHORT).show();
