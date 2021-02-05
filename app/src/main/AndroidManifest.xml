@@ -14,9 +14,9 @@
         android:usesCleartextTraffic="true">
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="6b3m7jfyy5" />
+            android:value="@string/client_id" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"/>
         <activity android:name=".SignUpActivity"></activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".ChoiceActivity">

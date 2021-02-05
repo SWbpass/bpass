@@ -8,5 +8,6 @@
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
+    <string name="client_id">"6b3m7jfyy5"</string>
+    <string name="client_secret">"Bsbw5uqJkIDYH4NPbkikLdCLPdamAstNgEeNXYwD"</string>
 </resources>

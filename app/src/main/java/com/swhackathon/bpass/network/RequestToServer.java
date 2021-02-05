@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RequestToServer {
 
-    private final static String BASE_URL = "http://templet.restapi.com";
+    private final static String BASE_URL = "https://b-pass.herokuapp.com";
     private final static String Naver_map = "https://naveropenapi.apigw.ntruss.com";
     private static Retrofit retrofit = null;
     private static Retrofit naver_map = null;

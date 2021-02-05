@@ -1,10 +1,12 @@
 package com.swhackathon.bpass.network.data.responsedata;
 
+import java.util.List;
+
 public class ResponseAdressData {
 
     private String status;
     private MetaAdressData meta;
-    private AdressList addresses;
+    private List<AdressList> addresses;
 
     public String getStatus() {
         return status;
@@ -14,7 +16,7 @@ public class ResponseAdressData {
         return meta;
     }
 
-    public AdressList getAddresses() {
+    public List<AdressList> getAddresses() {
         return addresses;
     }
 
@@ -36,29 +38,5 @@ class MetaAdressData {
 
     public int getPage() {
         return page;
-    }
-}
-
-class AdressList {
-
-    private String roadAddress;
-    private String jibunAddress;
-    private Double x;
-    private Double y;
-
-    public String getRoadAddress() {
-        return roadAddress;
-    }
-
-    public String getJibunAddress() {
-        return jibunAddress;
-    }
-
-    public Double getX() {
-        return x;
-    }
-
-    public Double getY() {
-        return y;
     }
 }

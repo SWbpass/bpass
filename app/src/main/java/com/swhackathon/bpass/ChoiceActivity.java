@@ -22,7 +22,7 @@ public class ChoiceActivity extends AppCompatActivity {
         img_store.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 intent.putExtra("Who", 0);
                 startActivity(intent);
                 finish();
@@ -31,7 +31,7 @@ public class ChoiceActivity extends AppCompatActivity {
         img_person.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 intent.putExtra("Who", 1);
                 startActivity(intent);
                 finish();

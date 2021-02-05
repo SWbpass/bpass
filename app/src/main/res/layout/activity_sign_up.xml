@@ -116,6 +116,9 @@
                 android:padding="15dp"
                 android:paddingBottom="3dp"
                 android:textSize="16dp"
+                android:fontFamily="@font/font_notosans"
+                android:textFontWeight="400"
+                android:includeFontPadding="false"
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
             <TextView
@@ -158,6 +161,11 @@
                 android:lineHeight="37dp"
                 android:padding="15dp"
                 android:textSize="16dp"
+                android:inputType="textPassword"
+                android:fontFamily="@font/font_notosans"
+                android:textFontWeight="400"
+                android:includeFontPadding="false"
+                android:textColor="@color/black"
                 android:layout_marginTop="5dp"
                 app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -201,6 +209,11 @@
                 android:lineHeight="37dp"
                 android:padding="15dp"
                 android:textSize="16dp"
+                android:inputType="textPassword"
+                android:fontFamily="@font/font_notosans"
+                android:textFontWeight="400"
+                android:includeFontPadding="false"
+                android:textColor="@color/black"
                 android:layout_marginTop="5dp"
                 app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -244,14 +257,65 @@
                 android:lineHeight="37dp"
                 android:padding="15dp"
                 android:textSize="16dp"
+                android:fontFamily="@font/font_notosans"
+                android:textFontWeight="400"
+                android:includeFontPadding="false"
+                android:textColor="@color/black"
                 android:layout_marginTop="5dp"
                 app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:fontFamily="@font/font_notosans"
+                android:includeFontPadding="false"
+                android:lineHeight="37dp"
+                android:text="메장 이름"
+                android:textColor="@color/black"
+                android:textFontWeight="500"
+                android:textSize="12dp"
+                android:layout_marginLeft="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_name" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_notosans"
+                android:includeFontPadding="false"
+                android:lineHeight="37dp"
+                android:text=" *"
+                android:textColor="@color/deep_sky_blue"
+                android:textFontWeight="500"
+                android:textSize="12dp"
+                app:layout_constraintStart_toEndOf="@+id/textView16"
+                app:layout_constraintTop_toTopOf="@+id/textView16" />
+
+            <EditText
+                android:id="@+id/et_store_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/et_shadow"
+                android:hint="이름을 입력해주세요."
+                android:textColorHint="@color/very_light_pink_two"
+                android:lineHeight="37dp"
+                android:padding="15dp"
+                android:textSize="16dp"
+                android:fontFamily="@font/font_notosans"
+                android:textFontWeight="400"
+                android:includeFontPadding="false"
+                android:textColor="@color/black"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
             <TextView
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:paddingTop="14dp"
                 android:fontFamily="@font/font_notosans"
                 android:includeFontPadding="false"
                 android:lineHeight="37dp"
@@ -261,7 +325,7 @@
                 android:textSize="12dp"
                 android:layout_marginLeft="5dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_name" />
+                app:layout_constraintTop_toBottomOf="@+id/et_store_name" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -271,6 +335,7 @@
                 android:includeFontPadding="false"
                 android:lineHeight="37dp"
                 android:text=" *"
+                android:paddingTop="14dp"
                 android:textColor="@color/deep_sky_blue"
                 android:textFontWeight="500"
                 android:textSize="12dp"
@@ -283,6 +348,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/et_shadow"
                 android:hint="전화번호를 입력해주세요."
+                android:inputType="phone"
+                android:textColor="@color/black"
                 android:textColorHint="@color/very_light_pink_two"
                 android:lineHeight="37dp"
                 android:padding="15dp"
@@ -291,10 +358,56 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
             <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="14dp"
+                android:fontFamily="@font/font_notosans"
+                android:includeFontPadding="false"
+                android:lineHeight="37dp"
+                android:text="매장 번호"
+                android:inputType="phone"
+                android:textColor="@color/black"
+                android:textFontWeight="500"
+                android:textSize="12dp"
+                android:layout_marginLeft="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_phone" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_notosans"
+                android:includeFontPadding="false"
+                android:lineHeight="37dp"
+                android:text=" *"
+                android:paddingTop="14dp"
+                android:textColor="@color/deep_sky_blue"
+                android:textFontWeight="500"
+                android:textSize="12dp"
+                app:layout_constraintStart_toEndOf="@+id/textView18"
+                app:layout_constraintTop_toTopOf="@+id/textView18" />
+
+            <EditText
+                android:id="@+id/et_store_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/et_shadow"
+                android:hint="전화번호를 입력해주세요."
+                android:textColor="@color/black"
+                android:textColorHint="@color/very_light_pink_two"
+                android:lineHeight="37dp"
+                android:padding="15dp"
+                android:textSize="16dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+            <TextView
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:paddingTop="14dp"
                 android:fontFamily="@font/font_notosans"
                 android:includeFontPadding="false"
                 android:lineHeight="37dp"
@@ -303,8 +416,9 @@
                 android:textFontWeight="500"
                 android:textSize="12dp"
                 android:layout_marginLeft="5dp"
+
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_phone" />
+                app:layout_constraintTop_toBottomOf="@+id/et_store_number" />
 
             <TextView
                 android:id="@+id/textView15"
@@ -314,6 +428,7 @@
                 android:includeFontPadding="false"
                 android:lineHeight="37dp"
                 android:text=" *"
+                android:paddingTop="14dp"
                 android:textColor="@color/deep_sky_blue"
                 android:textFontWeight="500"
                 android:textSize="12dp"
@@ -322,37 +437,56 @@
 
             <EditText
                 android:id="@+id/et_adress"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/et_shadow2"
-                android:hint="주소를 입력해주세요"
+                android:background="@drawable/et_shadow"
+                android:hint="ex)판교역로 235"
+                android:maxLines="1"
+                android:paddingEnd="45dp"
                 android:lineHeight="37dp"
                 android:padding="15dp"
+                android:textColor="@color/black"
                 android:textColorHint="@color/very_light_pink_two"
                 android:textSize="16dp"
-                android:layout_marginRight="3dp"
-                app:layout_constraintEnd_toStartOf="@+id/btn_adress"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/btn_adress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="6dp"
-                android:background="@drawable/blue_roundbox_10"
+                android:layout_marginEnd="16dp"
+                android:background="@color/white"
+                android:padding="5dp"
+                android:src="@drawable/icon_search"
                 android:fontFamily="@font/font_notosans"
+                android:textFontWeight="400"
+                android:includeFontPadding="false"
+                app:layout_constraintBottom_toBottomOf="@+id/et_adress"
+                app:layout_constraintEnd_toEndOf="@+id/et_adress"
+                app:layout_constraintTop_toTopOf="@+id/et_adress"
+                app:layout_constraintVertical_bias="0.384" />
+
+            <TextView
+                android:id="@+id/tv_adress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/et_shadow"
+                android:fontFamily="@font/font_notosans"
+                android:hint="주소"
                 android:includeFontPadding="false"
                 android:lineHeight="37dp"
-                android:text="주소찾기"
-                android:textColor="@color/white"
-                android:textFontWeight="500"
-                android:textSize="12dp"
-                app:layout_constraintBottom_toBottomOf="@+id/et_adress"
+                android:paddingBottom="20dp"
+                android:paddingHorizontal="15dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/very_light_pink_two"
+                android:textFontWeight="400"
+                android:textSize="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/et_adress" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_adress" />
 
             <EditText
                 android:id="@+id/et_adress2"
@@ -361,24 +495,15 @@
                 android:background="@drawable/et_shadow"
                 android:hint="상세주소를 입력해주세요."
                 android:textColorHint="@color/very_light_pink_two"
+                android:textColor="@color/black"
                 android:lineHeight="37dp"
                 android:padding="15dp"
                 android:textSize="16dp"
+                android:fontFamily="@font/font_notosans"
+                android:textFontWeight="400"
+                android:includeFontPadding="false"
                 android:layout_marginTop="5dp"
-                app:layout_constraintTop_toBottomOf="@+id/et_adress" />
-
-            <EditText
-                android:id="@+id/et_adress3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/et_shadow"
-                android:hint="상세주소를 입력해주세요."
-                android:textColorHint="@color/very_light_pink_two"
-                android:lineHeight="37dp"
-                android:padding="15dp"
-                android:textSize="16dp"
-                android:layout_marginTop="5dp"
-                app:layout_constraintTop_toBottomOf="@+id/et_adress2" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_adress" />
 
             <Button
                 android:id="@+id/btn_signup"
@@ -394,7 +519,7 @@
                 android:background="@drawable/blue_roundbox_20"
                 android:layout_marginTop="49dp"
                 android:paddingHorizontal="5dp"
-                app:layout_constraintTop_toBottomOf="@+id/et_adress3"/>
+                app:layout_constraintTop_toBottomOf="@+id/et_adress2"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
