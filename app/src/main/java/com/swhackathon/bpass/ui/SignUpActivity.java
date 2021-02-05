@@ -1,12 +1,15 @@
 package com.swhackathon.bpass.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -43,6 +46,7 @@ public class SignUpActivity extends AppCompatActivity {
     private int who;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private InputMethodManager imm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +71,7 @@ public class SignUpActivity extends AppCompatActivity {
         textView19 = findViewById(R.id.textView19);
 
         who = getIntent().getIntExtra("Who",0);
+        imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
 
         if(who == 1){
             et_store_name.setVisibility(View.GONE);
@@ -104,6 +109,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 tv_adress.setText(myData.getRoadAddress());
                                 latitude = myData.getY();
                                 longitude = myData.getX();
+                                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                             }
                         }
                     }
@@ -157,6 +163,7 @@ public class SignUpActivity extends AppCompatActivity {
                     editor.putString("token", response.body().getAccessToken());
                     editor.apply();
                     editor.commit();
+                    Toast.makeText(SignUpActivity.this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 else
@@ -169,5 +176,13 @@ public class SignUpActivity extends AppCompatActivity {
                 Log.e("서버 연결에 실패했습니다.", t.getMessage());
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

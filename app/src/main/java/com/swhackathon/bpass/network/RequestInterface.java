@@ -3,6 +3,7 @@ package com.swhackathon.bpass.network;
 import com.swhackathon.bpass.network.data.requestdata.RequestLogin;
 import com.swhackathon.bpass.network.data.requestdata.RequestSignup;
 import com.swhackathon.bpass.network.data.responsedata.ResponseAdressData;
+import com.swhackathon.bpass.network.data.responsedata.ResponseListPerson;
 import com.swhackathon.bpass.network.data.responsedata.ResponseSignup;
 
 import java.util.Map;
@@ -23,6 +24,14 @@ public interface RequestInterface {
     // 로그인
     @POST("/auth/signin")
     Call<ResponseSignup> requestLogin(@Body RequestLogin data);
+
+    // 개인 출입명부
+    @GET("/visits/1")
+    Call<ResponseListPerson> requestListPerson();
+
+    // 매장 출입명부
+    /*@GET("/visits")
+    Call<ResponseListStore> requestListStore();*/
 
     // Naver map Geocoding
     @GET("/map-geocode/v2/geocode")

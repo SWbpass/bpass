@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.MapActivity"></activity>
+        <activity android:name=".ui.ListStoreActivity"></activity>
+        <activity android:name=".ui.MapActivity" />
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
@@ -21,7 +22,7 @@
         <activity android:name=".ui.MainActivity" />
         <activity android:name=".ui.SignUpActivity" />
         <activity android:name=".ui.LoginActivity" />
-        <activity android:name=".ui.ChoiceActivity"></activity>
+        <activity android:name=".ui.ChoiceActivity" />
         <activity
             android:name=".ui.SplashActivity"
             android:theme="@style/SplashTheme">

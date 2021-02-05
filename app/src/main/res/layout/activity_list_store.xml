@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.ListStoreActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -18,11 +18,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/logo_img" />
+            android:text="출입명부"
+            android:fontFamily="@font/font_notosans"
+            android:textFontWeight="500"
+            android:includeFontPadding="false"
+            android:textSize="18dp"
+            android:textColor="@color/black2"
+            android:lineSpacingExtra="19sp"
+            android:layout_gravity="center"/>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -39,7 +45,7 @@
         android:id="@+id/iv_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/icon_person"
+        android:src="@drawable/icon_store"
         android:layout_marginLeft="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
@@ -89,70 +95,36 @@
         app:layout_constraintStart_toStartOf="@+id/tv_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
+    <ImageButton
+        android:id="@+id/btn_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="#00FFFFFF"
+        android:padding="5dp"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/icon_camera"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         android:background="@color/white_two"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_camera"
+        android:layout_marginTop="14dp"/>
 
-    <LinearLayout
-        android:id="@+id/btn_store"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:overScrollMode="never"
+        android:paddingVertical="30dp"
+        android:clipToPadding="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view">
-
-        <ImageButton
-            android:id="@+id/btn_camera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#00FFFFFF"
-            android:src="@drawable/btn_camera_selector"
-            android:layout_marginBottom="23dp"/>
-
-        <ImageButton
-            android:id="@+id/btn_list_store"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#00FFFFFF"
-            android:src="@drawable/btn_list_selector"
-            android:layout_marginTop="23dp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/btn_person"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view">
-
-        <ImageButton
-            android:id="@+id/btn_bluetooth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#00FFFFFF"
-            android:src="@drawable/btn_bluetooth_selector"
-            android:layout_marginBottom="23dp"/>
-
-        <ImageButton
-            android:id="@+id/btn_list_person"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#00FFFFFF"
-            android:src="@drawable/btn_list_selector"
-            android:layout_marginTop="23dp"/>
-    </LinearLayout>
-
+        app:layout_constraintTop_toTopOf="@+id/view"
+        tools:listitem="@layout/item_list"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
