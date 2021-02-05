@@ -53,6 +53,10 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.4.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    //리사이클러뷰 https://github.com/VenomVendor/RecyclerView
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    //material디자인 라이브러리 https://github.com/rey5137/material
+    implementation "com.google.android.material:material:1.2.0-alpha05"
 
     // Firebase Bom 종속성 추가(버전 관리용)
     implementation platform('com.google.firebase:firebase-bom:26.1.0')
