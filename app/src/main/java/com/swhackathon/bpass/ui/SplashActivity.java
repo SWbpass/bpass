@@ -24,7 +24,8 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void finishSplash(){
-        Intent intent = new Intent(this, ChoiceActivity.class);
+//        Intent intent = new Intent(this, ChoiceActivity.class);
+        Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
         finish();
     }

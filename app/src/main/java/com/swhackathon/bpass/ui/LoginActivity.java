@@ -1,5 +1,6 @@
 package com.swhackathon.bpass.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -12,11 +13,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.swhackathon.bpass.R;
 import com.swhackathon.bpass.network.RequestInterface;
 import com.swhackathon.bpass.network.RequestToServer;
 import com.swhackathon.bpass.network.data.requestdata.RequestLogin;
+import com.swhackathon.bpass.network.data.requestdata.RequestFirebaseToken;
 import com.swhackathon.bpass.network.data.responsedata.ResponseSignup;
+import com.swhackathon.bpass.network.data.responsedata.ResponseFirebaseToken;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void Login(RequestLogin requestLogin){
+    private void Login(final RequestLogin requestLogin){
         service.requestLogin(requestLogin).enqueue(new Callback<ResponseSignup>(){
             @Override
             public void onResponse(Call<ResponseSignup> call, Response<ResponseSignup> response) {
@@ -84,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("email", response.body().getId());
                     editor.apply();
                     editor.commit();
+                    getFirebaseToken(response.body()); // Firebase Token을 전송함
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.putExtra("Who",who);
                     startActivity(intent);
@@ -95,6 +105,49 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseSignup> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "서버 연결에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                Log.e("서버 연결에 실패했습니다.", t.getMessage());
+            }
+        });
+    }
+
+    private void getFirebaseToken(ResponseSignup responseSignup) {
+        final ResponseSignup response = responseSignup;
+        // FCM 토큰을 가져옴
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if(!task.isSuccessful()) {
+                    Log.w("getFirebaseToken >>", "Get FCM Token Failed", task.getException());
+                    /*
+                    TODO: 토큰을 얻어오지 못했을 때 처리 필요
+                     */
+                    return;
+                }
+
+                String token = task.getResult();
+                // 가져온 토큰을 API 서버로 보냄
+                SendFirebaseToken(new RequestFirebaseToken(response.getId(), response.getAccessToken()), response.getAccessToken());
+            }
+        });
+    }
+
+    private void SendFirebaseToken(RequestFirebaseToken requestFirebaseToken, String authToken) {
+        Map<String, String> headerMap = new HashMap<String, String>();
+        headerMap.put("Authorization", "Bearer " + authToken);
+        service.registerFirebaseToken(headerMap, requestFirebaseToken).enqueue(new Callback<ResponseFirebaseToken>(){
+            @Override
+            public void onResponse(Call<ResponseFirebaseToken> call, Response<ResponseFirebaseToken> response) {
+                Log.d("통신 >> ", response.toString());
+                if(response.isSuccessful()){
+                    //
+                }
+                else
+                    Toast.makeText(LoginActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseFirebaseToken> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "서버 연결에 실패했습니다.", Toast.LENGTH_SHORT).show();
                 Log.e("서버 연결에 실패했습니다.", t.getMessage());
             }

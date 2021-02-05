@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
@@ -31,17 +32,36 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
+    // Naver Map API
     implementation 'com.naver.maps:map-sdk:3.10.2'
 
-    //Retrofit 라이브러리 : https://github.com/square/retrofit
+    // 지자기, 가속도 센서를 활용해 최적의 위치를 반환하는데 필요한 라이브러리(NaverMap과 연동됨)
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+
+    // Restful API 통신 인터페이스 라이브러리
+    // Retrofit 라이브러리 : https://github.com/square/retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.6.2'
     implementation 'com.squareup.retrofit2:retrofit-mock:2.6.2'
-    //객체 시리얼라이즈를 위한 Gson 라이브러리 : https://github.com/google/gson
+
+    // 객체 시리얼라이즈를 위한 Gson 라이브러리 : https://github.com/google/gson
     implementation 'com.google.code.gson:gson:2.8.6'
-    //Retrofit 에서 Gson 을 사용하기 위한 라이브러리
+
+    // Retrofit 에서 Gson 을 사용하기 위한 라이브러리
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
-    //okhttp3 https://github.com/MaxToyberman/react-native-ssl-pinning
+
+    // okhttp3 https://github.com/MaxToyberman/react-native-ssl-pinning
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.4.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+
+    // Firebase Bom 종속성 추가(버전 관리용)
+    implementation platform('com.google.firebase:firebase-bom:26.1.0')
+
+    // Firebase가 제공해주는 여러 라이브러리 중 자신이 사용할 라이브러리를 버전 없이 추가해주기
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-messaging'
+
+    // Restful API 통신 인터페이스 라이브러리
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
 }
