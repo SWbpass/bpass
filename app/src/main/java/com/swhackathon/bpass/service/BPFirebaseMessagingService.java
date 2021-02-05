@@ -14,7 +14,7 @@ import androidx.core.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.swhackathon.bpass.R;
-import com.swhackathon.bpass.ui.MapActivity;
+import com.swhackathon.bpass.ui.ListPersonActivity;
 
 public class BPFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -22,34 +22,34 @@ public class BPFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        Intent notificationIntent = new Intent(this, MapActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent,  PendingIntent.FLAG_UPDATE_CURRENT);;
+        PendingIntent pendingIntent = null;
 
         if(remoteMessage.getData().size() > 0) {
-            Log.e("[remoteMessage lati]", remoteMessage.getData().get("latitude"));
-            Log.e("[remoteMessage longi]", remoteMessage.getData().get("longitude"));
-            Log.e("[remoteMessage Data]", remoteMessage.getData().toString());
 
             String storeName = remoteMessage.getData().get("storeName");
+            String storePhoneNumber = remoteMessage.getData().get("storePhoneNumber");
+            String address = remoteMessage.getData().get("address");
             double latitude = Double.parseDouble(remoteMessage.getData().get("latitude"));
             double longitude = Double.parseDouble(remoteMessage.getData().get("longitude"));
 
-            notificationIntent.putExtra("storeName", storeName); //전달할 값
-            notificationIntent.putExtra("latitude", latitude); //전달할 값
-            notificationIntent.putExtra("longitude", longitude); //전달할 값
+            Intent notificationIntent = new Intent(this, ListPersonActivity.class);
+
+            notificationIntent.putExtra("storeName", storeName);
+            notificationIntent.putExtra("storePhoneNumber", storePhoneNumber);
+            notificationIntent.putExtra("address", address);
+            notificationIntent.putExtra("latitude", latitude);
+            notificationIntent.putExtra("longitude", longitude);
             notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK) ;
             pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent,  PendingIntent.FLAG_UPDATE_CURRENT);
         }
 
         if(remoteMessage != null) {
-            Log.e("[remoteMessage Title]", remoteMessage.getNotification().getTitle());
-            Log.e("[remoteMessage Body]", remoteMessage.getNotification().getBody());
+            Log.e("remoteMessage Title >>", remoteMessage.getNotification().getTitle());
+            Log.e("remoteMessage Body >>", remoteMessage.getNotification().getBody());
+            Log.e("remoteMessage Size >>", String.valueOf(remoteMessage.getData().size()));
 
-            Log.e("[remoteMessage TTT]", String.valueOf(remoteMessage.getData().size()));
-            Log.e("[remoteMessage TTT]", remoteMessage.getData().get("latitude"));
             sendNotification(remoteMessage.getNotification(), pendingIntent); // Notification 발생
         }
-        sendNotification(remoteMessage.getNotification(), pendingIntent); // Notification 발생
     }
 
     private void sendNotification(RemoteMessage.Notification data, PendingIntent pendingIntent) {
@@ -73,7 +73,7 @@ public class BPFirebaseMessagingService extends FirebaseMessagingService {
         builder.setAutoCancel(true);
         builder.setDefaults(Notification.DEFAULT_ALL);
         builder.setWhen(System.currentTimeMillis());
-        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setSmallIcon(R.drawable.ic_launcher);
         builder.setContentTitle(data.getTitle());
         builder.setContentText(data.getBody());
 

@@ -13,6 +13,7 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -41,5 +42,5 @@ public interface RequestInterface {
 
     // Firebase FCM Token
     @POST("/push")
-    Call<ResponseFirebaseToken> registerFirebaseToken(@HeaderMap Map<String, String> headers, @Body RequestFirebaseToken data);
+    Call<ResponseFirebaseToken> registerFirebaseToken(@Header("Authorization") String jwt, @Body RequestFirebaseToken data);
 }
