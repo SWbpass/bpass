@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.swhackathon.bpass">
 
+    <!--UsesPermission-->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -12,17 +14,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.ListStoreActivity"></activity>
-        <activity android:name=".ui.MapActivity" />
 
+
+        <!--MetaData-->
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="@string/client_id" />
 
+        <!--Activity-->
         <activity android:name=".ui.MainActivity" />
         <activity android:name=".ui.SignUpActivity" />
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.ChoiceActivity" />
+        <activity android:name=".ui.ListStoreActivity"/>
         <activity
             android:name=".ui.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -32,6 +36,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
+        <activity android:name=".ui.MapActivity" />
 
+        <!--Service-->
+        <service
+            android:name=".service.BPFirebaseMessagingService"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+    </application>
 </manifest>

@@ -2,9 +2,11 @@ package com.swhackathon.bpass.network;
 
 import com.swhackathon.bpass.network.data.requestdata.RequestLogin;
 import com.swhackathon.bpass.network.data.requestdata.RequestSignup;
+import com.swhackathon.bpass.network.data.requestdata.RequestFirebaseToken;
 import com.swhackathon.bpass.network.data.responsedata.ResponseAdressData;
 import com.swhackathon.bpass.network.data.responsedata.ResponseListPerson;
 import com.swhackathon.bpass.network.data.responsedata.ResponseSignup;
+import com.swhackathon.bpass.network.data.responsedata.ResponseFirebaseToken;
 
 import java.util.Map;
 
@@ -36,4 +38,8 @@ public interface RequestInterface {
     // Naver map Geocoding
     @GET("/map-geocode/v2/geocode")
     Call<ResponseAdressData> requestAdress(@HeaderMap Map<String, String> headers, @Query("query") String title);
+
+    // Firebase FCM Token
+    @POST("/push")
+    Call<ResponseFirebaseToken> registerFirebaseToken(@HeaderMap Map<String, String> headers, @Body RequestFirebaseToken data);
 }
