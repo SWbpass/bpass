@@ -73,5 +73,10 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
     annotationProcessor 'androidx.room:room-compiler:2.2.6'
 
+    // beacon 통신을 라이브러리
+    implementation 'org.altbeacon:android-beacon-library:2+'
+
+
+
 
 }
