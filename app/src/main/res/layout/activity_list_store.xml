@@ -127,4 +127,53 @@
         app:layout_constraintTop_toTopOf="@+id/view"
         tools:listitem="@layout/item_list"/>
 
+    <TextView
+        android:id="@+id/tv_today"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_notosans"
+        android:gravity="end"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="6sp"
+        android:text="오늘"
+        android:layout_marginRight="15dp"
+        android:textColor="@color/black2"
+        android:textFontWeight="700"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_one"
+        app:layout_constraintTop_toTopOf="@+id/tv_one" />
+
+
+    <TextView
+        android:id="@+id/tv_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_notosans"
+        android:gravity="end"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="6sp"
+        android:text="1주"
+        android:layout_marginRight="15dp"
+        android:textColor="@color/black2"
+        android:textFontWeight="300"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_two"
+        app:layout_constraintTop_toTopOf="@+id/tv_two" />
+
+    <TextView
+        android:id="@+id/tv_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_notosans"
+        android:gravity="end"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="6sp"
+        android:text="2주"
+        android:textColor="@color/black2"
+        android:textFontWeight="300"
+        android:textSize="13sp"
+        android:layout_marginTop="22dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

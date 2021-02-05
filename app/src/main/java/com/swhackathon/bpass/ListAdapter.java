@@ -32,7 +32,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ListAdapter.ViewHolder holder, int position) {
-        holder.onBind(mData.get(position));
+        holder.onBind(mData.get(position), position);
     }
 
     @Override
@@ -42,6 +42,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_name, tv_entry, tv_exit, tv_tel;
+        View divide_line;
 
         ViewHolder(final View itemView) {
             super(itemView);
@@ -50,6 +51,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             tv_entry = itemView.findViewById(R.id.tv_entrance);
             tv_exit = itemView.findViewById(R.id.tv_exit);
             tv_tel = itemView.findViewById(R.id.tv_phone);
+            divide_line = itemView.findViewById(R.id.divide_line);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -58,11 +60,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             });
         }
 
-        void onBind(VisitListData data) {
+        void onBind(VisitListData data, int position) {
             tv_name.setText(data.getVisitor().getName());
             tv_entry.setText(data.getEntryTime());
             tv_exit.setText(data.getExitTime());
             tv_tel.setText("T. " + data.getStroe().getStorePhoneNumber());
+            if(getItemCount() == position)
+                divide_line.setVisibility(View.GONE);
         }
 
     }
