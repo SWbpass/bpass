@@ -1,10 +1,12 @@
-package com.swhackathon.bpass;
+package com.swhackathon.bpass.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.swhackathon.bpass.R;
 
 public class ChoiceActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.swhackathon.bpass;
+package com.swhackathon.bpass.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
+
+import com.swhackathon.bpass.R;
 import com.swhackathon.bpass.network.RequestInterface;
 import com.swhackathon.bpass.network.RequestToServer;
 import com.swhackathon.bpass.network.data.requestdata.RequestSignup;

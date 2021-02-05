@@ -1,4 +1,4 @@
-package com.swhackathon.bpass;
+package com.swhackathon.bpass.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 

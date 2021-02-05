@@ -10,7 +10,6 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -23,7 +22,7 @@ public interface RequestInterface {
 
     // 로그인
     @POST("/auth/signin")
-    Call<ResponseSignup> requestLogin(@Header("Authorization") String header, @Body RequestLogin data);
+    Call<ResponseSignup> requestLogin(@Body RequestLogin data);
 
     // Naver map Geocoding
     @GET("/map-geocode/v2/geocode")

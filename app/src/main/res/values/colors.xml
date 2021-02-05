@@ -8,6 +8,9 @@
     <color name="black2">#232323</color>
     <color name="white">#FFFFFF</color>
     <color name="brown_grey">#878787</color>
+    <color name="brownish_grey">#6e6e6e</color>
     <color name="deep_sky_blue">#0f84f7</color>
     <color name="very_light_pink_two">#b9b9b9</color>
+    <color name="white_two">#f4f4f4</color>
+
 </resources>

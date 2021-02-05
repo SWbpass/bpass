@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpActivity">
+    tools:context=".ui.SignUpActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -396,6 +396,7 @@
                 android:background="@drawable/et_shadow"
                 android:hint="전화번호를 입력해주세요."
                 android:textColor="@color/black"
+                android:inputType="phone"
                 android:textColorHint="@color/very_light_pink_two"
                 android:lineHeight="37dp"
                 android:padding="15dp"
@@ -478,7 +479,7 @@
                 android:hint="주소"
                 android:includeFontPadding="false"
                 android:lineHeight="37dp"
-                android:paddingBottom="20dp"
+                android:paddingBottom="10dp"
                 android:paddingHorizontal="15dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/very_light_pink_two"

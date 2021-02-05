@@ -1,7 +1,6 @@
-package com.swhackathon.bpass;
+package com.swhackathon.bpass.ui;
 
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.UiThread;
 import androidx.fragment.app.FragmentActivity;
@@ -14,8 +13,10 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.NaverMapOptions;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.overlay.Marker;
+import com.swhackathon.bpass.R;
 
-public class MainActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

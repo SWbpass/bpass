@@ -1,4 +1,4 @@
-package com.swhackathon.bpass;
+package com.swhackathon.bpass.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.swhackathon.bpass.R;
 import com.swhackathon.bpass.network.RequestInterface;
 import com.swhackathon.bpass.network.RequestToServer;
 import com.swhackathon.bpass.network.data.requestdata.RequestLogin;
@@ -71,22 +72,20 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void Login(RequestLogin requestLogin){
-        String header = "Bearer" + " " + sharedPreferences.getString("token", "token");
-        service.requestLogin(header,requestLogin).enqueue(new Callback<ResponseSignup>(){
-
+        service.requestLogin(requestLogin).enqueue(new Callback<ResponseSignup>(){
             @Override
             public void onResponse(Call<ResponseSignup> call, Response<ResponseSignup> response) {
                 Log.d("통신 >> ", response.toString());
                 if(response.isSuccessful()){
-                    /*if(who==0)
-                        editor.putString("name", response.body().getAccessToken());
+                    if(who==0)
+                        editor.putString("name", response.body().getStoreName());
                     else
-                        editor.putString("name", response.body().getAccessToken());
-                    editor.putString("email", response.body().getAccessToken());
+                        editor.putString("name", response.body().getName());
+                    editor.putString("email", response.body().getId());
                     editor.apply();
-                    editor.commit();*/
-                    Intent intent = new Intent(getApplicationContext(), ChoiceActivity.class);
-                    intent.putExtra("role",who);
+                    editor.commit();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.putExtra("Who",who);
                     startActivity(intent);
                     finish();
                 }
