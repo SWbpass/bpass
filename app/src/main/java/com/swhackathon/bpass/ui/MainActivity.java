@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -21,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ImageView iv_profile;
     private TextView tv_name, tv_email;
-    private ImageButton btn_camera, btn_list_store, btn_beacon, btn_bluetooth, btn_list_person;
+    private ImageButton btn_camera, btn_list_store, btn_bluetooth, btn_list_person;
     private LinearLayout btn_store, btn_person;
     private int who;
     private SharedPreferences sharedPreferences;
@@ -37,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         tv_email = findViewById(R.id.tv_email);
         btn_camera = findViewById(R.id.btn_camera);
         btn_list_store = findViewById(R.id.btn_list_store);
-        btn_beacon = findViewById(R.id.btn_beacon);
         btn_bluetooth = findViewById(R.id.btn_bluetooth);
         btn_list_person = findViewById(R.id.btn_list_person);
         btn_store = findViewById(R.id.btn_store);
@@ -80,17 +81,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        View.OnClickListener beaconBluetooth = new View.OnClickListener() {
+        btn_bluetooth.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, BluetoothActivity.class);
-                if(who == 0)
-                    intent = new Intent(MainActivity.this, BeaconActivity.class);
                 startActivity(intent);
             }
-        };
-        btn_bluetooth.setOnClickListener(beaconBluetooth);
-        btn_beacon.setOnClickListener(beaconBluetooth);
+        });
 
         btn_list_person.setOnClickListener(new View.OnClickListener() {
             @Override

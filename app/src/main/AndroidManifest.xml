@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.swhackathon.bpass">
 
     <!--UsesPermission-->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
-    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -43,7 +38,6 @@
         <activity android:name=".ui.ChoiceActivity" />
         <activity android:name=".ui.ListStoreActivity" />
         <activity android:name=".ui.ListPersonActivity" />
-        <activity android:name=".ui.BeaconActivity" />
         <activity android:name=".ui.BluetoothActivity" />
         <activity android:name=".ui.BeaconActivity" />
 
@@ -55,11 +49,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <!-- uncomment the following to enable scanning for over 30 minutes on Android 7+ -->
-        <!--<service android:name="org.altbeacon.beacon.service.BeaconService"
-            tools:node="replace">
-            <meta-data android:name="longScanForcingEnabled" android:value="true"/>
-        </service>-->
 
     </application>
 </manifest>
