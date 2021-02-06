@@ -116,6 +116,15 @@
             android:layout_marginBottom="23dp"/>
 
         <ImageButton
+            android:id="@+id/btn_beacon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
+            android:src="@drawable/btn_bluetooth_selector"
+            android:layout_marginTop="23dp"
+            android:layout_marginBottom="23dp"/>
+
+        <ImageButton
             android:id="@+id/btn_list_store"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

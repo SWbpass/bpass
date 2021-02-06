@@ -14,11 +14,18 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
-import com.swhackathon.bpass.db.AppDatabase;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.room.Room;
+
 import com.swhackathon.bpass.R;
+import com.swhackathon.bpass.db.AppDatabase;
 import com.swhackathon.bpass.db.Visit;
 import com.swhackathon.bpass.db.VisitDao;
 
@@ -29,7 +36,7 @@ import org.altbeacon.beacon.BeaconTransmitter;
 import java.util.Arrays;
 import java.util.List;
 
-public class BluetoothActivity extends AppCompatActivity {
+public class BluetoothActivity extends AppCompatActivity implements BeaconConsumer {
 
     private Toolbar toolbar;
     private ImageView bluetooth;
@@ -37,6 +44,14 @@ public class BluetoothActivity extends AppCompatActivity {
     private List<Visit> visitData;
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
     private static final String TAG = "sampleCreateBeacon";
+
+    protected static final String TAG1 = "::MonitoringActivity::";
+    protected static final String TAG2 = "::RangingActivity::";
+    private static final int PERMISSION_REQUEST_FINE_LOCATION = 1;
+    private static final int PERMISSION_REQUEST_BACKGROUND_LOCATION = 2;
+
+    private BeaconManager beaconManager;
+    private boolean isRunning = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,8 +117,6 @@ public class BluetoothActivity extends AppCompatActivity {
         bluetooth.setBackgroundResource(R.drawable.bluetooth_anim);
         frameAnimation = (AnimationDrawable) bluetooth.getBackground();
 
-        frameAnimation.start();
-
         AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, "visit-db")
                 .build();
 
@@ -113,6 +126,34 @@ public class BluetoothActivity extends AppCompatActivity {
         new InsertAsynTsak(db.visitDao())
                 .execute(new Visit("스타벅스 서울역동자동","1522-3232", "서울특별시 용산구 동자동 한강대로 372","10 : 25 : 45", "01 : 15 : 23", 126.9694083, 37.549469));
 
+        bluetooth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isRunning) {
+                    beaconManager.unbind(BluetoothActivity.this);
+                    isRunning = false;
+                    frameAnimation.stop();
+                }
+                else {
+                    if (ContextCompat.checkSelfPermission(BluetoothActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                    }
+                    //이 클래스의 싱글 톤 인스턴스에 대한 접근 자입니다. 컨텍스트가 제공되어야하지만 비 활동 또는
+                    //비 서비스 클래스에서 사용해야하는 경우 Android 애플리케이션 클래스의 다른 싱글 톤
+                    //또는 서브 클래스에 연결할 수 있습니다.
+                    beaconManager = BeaconManager.getInstanceForApplication(BluetoothActivity.this);
+                    //getBeaconParsers() = 활성 비콘 파서 목록을 가져옵니다.
+                    //거기에 새로운 비콘파서 형식을 만들어서 .add() 합니다
+                    //setBeaconLayout(String) = BLE 알림 내에서 0으로 색인화 된 오프셋을 바이트로 지정하는 문자열을 기반으로 비콘 필드 구문 분석 알고리즘을 정의합니다.
+                    beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
+                    //Android Activity또는 Service에 바인딩 합니다 BeaconService.
+                    beaconManager.bind(BluetoothActivity.this);
+
+                    isRunning = true;
+                    frameAnimation.start();
+                }
+            }
+        });
     }
 
     private static class InsertAsynTsak extends AsyncTask<Visit, Void, Void>{
