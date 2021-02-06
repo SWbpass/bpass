@@ -39,6 +39,7 @@
         <activity android:name=".ui.ListStoreActivity" />
         <activity android:name=".ui.ListPersonActivity" />
         <activity android:name=".ui.BluetoothActivity" />
+        <activity android:name=".ui.BeaconActivity" />
 
         <!--Service-->
         <service
