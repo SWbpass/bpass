@@ -1,9 +1,18 @@
 package com.swhackathon.bpass.ui;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.room.Room;
+
 import android.Manifest;
+import android.bluetooth.le.AdvertiseCallback;
+import android.bluetooth.le.AdvertiseSettings;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.util.Log;
@@ -21,14 +30,10 @@ import com.swhackathon.bpass.db.Visit;
 import com.swhackathon.bpass.db.VisitDao;
 
 import org.altbeacon.beacon.Beacon;
-import org.altbeacon.beacon.BeaconConsumer;
-import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.BeaconParser;
-import org.altbeacon.beacon.MonitorNotifier;
-import org.altbeacon.beacon.RangeNotifier;
-import org.altbeacon.beacon.Region;
+import org.altbeacon.beacon.BeaconTransmitter;
 
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.List;
 
 public class BluetoothActivity extends AppCompatActivity implements BeaconConsumer {
@@ -37,6 +42,8 @@ public class BluetoothActivity extends AppCompatActivity implements BeaconConsum
     private ImageView bluetooth;
     private AnimationDrawable frameAnimation;
     private List<Visit> visitData;
+    private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
+    private static final String TAG = "sampleCreateBeacon";
 
     protected static final String TAG1 = "::MonitoringActivity::";
     protected static final String TAG2 = "::RangingActivity::";
@@ -49,6 +56,53 @@ public class BluetoothActivity extends AppCompatActivity implements BeaconConsum
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: ");
+
+        // 퍼미션 체크
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("This app needs location access");
+                builder.setMessage("Please grant location access so this app can detect beacons.");
+                builder.setPositiveButton(android.R.string.ok, null);
+                builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_COARSE_LOCATION);
+                        }
+                    }
+                });
+                builder.show();
+            }
+        }
+
+        // 비콘 생성 후 시작. 실제 가장 필요한 소스
+        Beacon beacon = new Beacon.Builder()
+                .setId1("2f234454-cf6d-4a0f-adf2-f4911ba9ffa6")  // uuid for beacon
+                .setId2("1")  // major
+                .setId3("1")  // minor
+                .setManufacturer(0x0118)  // Radius Networks. 0x0118 : Change this for other beacon layouts // 0x004C : for iPhone
+                .setTxPower(-59)  // Power in dB
+                .setDataFields(Arrays.asList(new Long[]{0l}))  // Remove this for beacon layouts without d: fields
+                .build();
+
+        BeaconParser beaconParser = new BeaconParser()
+                .setBeaconLayout("m:2-3=beac,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25");
+        BeaconTransmitter beaconTransmitter = new BeaconTransmitter(getApplicationContext(), beaconParser);
+        beaconTransmitter.startAdvertising(beacon, new AdvertiseCallback() {
+            @Override
+            public void onStartSuccess(AdvertiseSettings settingsInEffect) {
+                super.onStartSuccess(settingsInEffect);
+                Log.d(TAG, "onStartSuccess: ");
+            }
+
+            @Override
+            public void onStartFailure(int errorCode) {
+                super.onStartFailure(errorCode);
+                Log.d(TAG, "onStartFailure: " + errorCode);
+            }
+        });
         setContentView(R.layout.activity_bluetooth);
 
         toolbar = findViewById(R.id.toolbar);
@@ -117,72 +171,30 @@ public class BluetoothActivity extends AppCompatActivity implements BeaconConsum
             return null;
         }
     }
-
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //Android Activity또는 Service에 바인딩 을 해제합니다 BeaconService.
-        beaconManager.unbind(this);
-        isRunning = false;
-        frameAnimation.stop();
-    }
-    @Override
-    //비콘 서비스가 실행 중이고 BeaconManager를 통해 명령을 수락 할 준비가되면 호출됩니다.
-    public void onBeaconServiceConnect() {
-        //모든 범위 알리미를 제거한다.
-        beaconManager.removeAllRangeNotifiers();
-        //BeaconService비콘 영역을 보거나 멈출 때 마다 호출해야하는 클래스를 지정합니다 .
-        if(isRunning) {
-            beaconManager.addMonitorNotifier(new MonitorNotifier() {
-                @Override
-                //하나 이상의 비콘 Region이 표시 될 때 호출됩니다 .
-                public void didEnterRegion(Region region) {
-                    Log.e(TAG1, ":::::최소하나의 비콘 발견하였음:::::");
-                }
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        Log.d(TAG, "onRequestPermissionsResult: ");
 
-                @Override
-                //비콘 Region이 보이지 않을 때 호출됩니다 .
-                public void didExitRegion(Region region) {
-                    Log.e(TAG1, ":::::더이상 비콘을 찾을 수 없음:::::");
-                }
+        switch (requestCode) {
+            case PERMISSION_REQUEST_COARSE_LOCATION: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d("", "coarse location permission granted");
+                } else {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("Functionality limited");
+                    builder.setMessage("Since location access has not been granted, this app will not be able to discover beacons when in the background.");
+                    builder.setPositiveButton(android.R.string.ok, null);
+                    builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
 
-                @Override
-                //하나 이상의 비콘 Region이 표시 될 때 MonitorNotifier.INSIDE 상태 값으로 호출됩니다 .
-                public void didDetermineStateForRegion(int state, Region region) {
-                    if (state == 0) {
-                        Log.e(TAG1, ":::::비콘이 보이는 상태이다. state : " + state + ":::::");
-                    } else {
-                        Log.e(TAG1, ":::::비콘이 보이지 않는 상태이다. state : " + state + ":::::");
-                    }
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                        }
+
+                    });
+                    builder.show();
                 }
-            });
-            //범위한정 알리미를 추가한다
-            beaconManager.addRangeNotifier(new RangeNotifier() {
-                @Override
-                //눈에 보이는 비콘에 대한 mDistance(major 또는 minor와의 거리를 뜻하는)의 추정치를 제공하기 위해 초당 한 번 호출
-                public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
-                    List<Beacon> list = (List<Beacon>) beacons;
-                    if (beacons.size() > 0) {
-                        Log.e(TAG2, ":::::The first beacon I see is about " + beacons.iterator().next().getDistance() + " meters away.:::::");
-                        Log.e(TAG2, ":::::This :: U U I D :: of beacon   :  " + beacons.iterator().next().getId1().toString() + ":::::");
-                        Log.e(TAG2, ":::::This ::M a j o r:: of beacon   :  " + beacons.iterator().next().getId2().toString() + ":::::");
-                        Log.e(TAG2, ":::::This ::M i n o r:: of beacon   :  " + beacons.iterator().next().getId3().toString() + ":::::");
-                    }
-                }
-            });
-            try {
-                //알려주는 BeaconService전달 일치 비콘을 찾고 시작하는 Region개체를 지역에서 비콘을 볼 수있는 동안 추정 mDistance에있는 모든 초 업데이트를 제공합니다.
-                beaconManager.startRangingBeaconsInRegion(new Region("C2:02:DD:00:13:DD", null, null, null));
-            } catch (RemoteException e) { }
+                return;
+            }
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if(isRunning) {
-            isRunning = false;
-            frameAnimation.stop();
-        }
-        super.onBackPressed();
     }
 }
